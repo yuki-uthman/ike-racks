@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ike Racks</title>
+<meta name="description" content="2C and RD8 racks sold per month at MRH Investment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  :root {
+    --bg: #f4f7f6; --surface: #ffffff; --muted: #edf2f0; --ink: #0d1f1c; --ink2: #4c5f5b; --ink3: #6f807c;
+    --border: rgba(13,31,28,0.08); --grid: #e1e6e4; --accent: #0f6f68; --accent-soft: rgba(15,111,104,0.12);
+    --warn: #8a5a00; --warn-soft: rgba(214,158,0,0.16);
+    --shadow: 0 1px 2px rgba(13,31,28,0.05), 0 12px 32px -16px rgba(13,31,28,0.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1614; --surface: #11201d; --muted: #162622; --ink: #f2f6f5; --ink2: #b7c6c2; --ink3: #8a9b96;
+      --border: rgba(255,255,255,0.08); --grid: #223330; --accent: #29b3a6; --accent-soft: rgba(41,179,166,0.16);
+      --warn: #e6b84d; --warn-soft: rgba(230,184,77,0.16);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 14px 32px -16px rgba(0,0,0,0.6);
+    }
+  }
+  html { background: var(--bg); }
+  body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink);
+    font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+  .shell { max-width: 720px; margin: 0 auto; padding: 18px 16px calc(28px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 14px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); }
+  .eyebrow { font-size: 13px; font-weight: 600; color: var(--ink2); letter-spacing: 0.01em; padding: 4px 2px 0; }
+  .eyebrow b { color: var(--ink); font-weight: 700; }
+
+  .hero { padding: 18px 18px 16px; }
+  .total { display: flex; align-items: baseline; gap: 10px; font-family: Manrope, sans-serif; font-weight: 800; font-size: 64px; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .unit { font-size: 18px; font-weight: 700; color: var(--ink2); letter-spacing: 0; }
+  .sub { margin-top: 10px; font-size: 14px; color: var(--ink2); line-height: 1.45; }
+  .sub b { color: var(--ink); font-weight: 600; }
+  .split { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; color: var(--ink2); background: var(--muted); border-radius: 999px; padding: 6px 12px; }
+  .pill b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .charthead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 16px 18px 0; }
+  .title { font-family: Manrope, sans-serif; font-weight: 700; font-size: 15px; }
+  .hint { font-size: 12.5px; color: var(--ink3); }
+  .chart { display: flex; gap: 10px; height: 190px; padding: 6px 14px 14px 12px; }
+  .axis { position: relative; flex: 0 0 30px; margin-top: 22px; margin-bottom: 26px; }
+  .axis span { position: absolute; right: 0; transform: translateY(-50%); font-size: 10.5px; color: var(--ink3); font-variant-numeric: tabular-nums; }
+  .plotwrap { position: relative; flex: 1; min-width: 0; }
+  .grid { position: absolute; left: 0; right: 0; top: 22px; bottom: 26px; pointer-events: none; }
+  .grid i { position: absolute; left: 0; right: 0; height: 1px; background: var(--grid); }
+  .bars { position: relative; display: flex; gap: 6px; height: 100%; }
+  .bar { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; }
+  .barcol { flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-top: 22px; }
+  .val { font-size: 12px; font-weight: 700; color: var(--ink); margin-bottom: 4px; font-variant-numeric: tabular-nums; line-height: 1; height: 12px; }
+  .val.zero { color: transparent; }
+  .fill { width: 70%; max-width: 34px; min-height: 2px; border-radius: 5px 5px 2px 2px; background: var(--accent); transition: height 300ms cubic-bezier(0.2,0.8,0.2,1), opacity 0.2s; }
+  .fill.zero { background: var(--grid); height: 2px !important; }
+  .lbl { height: 26px; display: flex; align-items: center; font-size: 11px; color: var(--ink3); white-space: nowrap; }
+  .bars.has-sel .bar:not(.sel) .fill { opacity: 0.35; }
+  .bar.sel .lbl { color: var(--ink); font-weight: 700; }
+  .bar:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+
+  .listhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 16px 18px 6px; }
+  .chip { display: none; align-items: center; gap: 6px; border: 0; cursor: pointer; font: inherit; font-size: 12.5px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 5px 11px; }
+  .chip.on { display: inline-flex; }
+  .rows { list-style: none; margin: 0; padding: 0 0 8px; }
+  .row { padding: 12px 18px; }
+  .row + .row { box-shadow: inset 0 1px 0 var(--grid); }
+  .top { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 10px; align-items: baseline; }
+  .name { font-size: 14.5px; font-weight: 600; line-height: 1.25; }
+  .spec { font-size: 12.5px; color: var(--ink3); font-weight: 400; margin-left: 6px; white-space: nowrap; }
+  .n { font-family: Manrope, sans-serif; font-weight: 800; font-size: 17px; font-variant-numeric: tabular-nums; text-align: right; }
+  .src { grid-column: 1 / -1; font-size: 12px; color: var(--ink3); }
+  .meter { height: 6px; border-radius: 3px; background: var(--muted); overflow: hidden; margin: 8px 0 8px; }
+  .meter i { display: block; height: 100%; border-radius: 3px; background: var(--accent); transition: width 300ms cubic-bezier(0.2,0.8,0.2,1); }
+  .months { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 3px; }
+  .m { text-align: center; border-radius: 6px; padding: 3px 0 4px; background: var(--muted); }
+  .m small { display: block; font-size: 9.5px; color: var(--ink3); letter-spacing: 0.02em; }
+  .m span { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .m.zero span { color: var(--ink3); font-weight: 400; }
+  .m.sel { background: var(--accent-soft); }
+  .m.sel small { color: var(--accent); font-weight: 700; }
+  .row.none .name, .row.none .n { color: var(--ink3); }
+  .group { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 18px 6px; font-family: Manrope, sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink2); box-shadow: inset 0 1px 0 var(--grid); }
+  .group:first-child { box-shadow: none; }
+  .group b { font-variant-numeric: tabular-nums; color: var(--ink); }
+  .flag { display: inline-block; margin-top: 6px; font-size: 12px; color: var(--warn); background: var(--warn-soft); border-radius: 8px; padding: 4px 8px; line-height: 1.35; }
+  .foot { text-align: center; font-size: 12px; color: var(--ink3); padding: 2px 8px; line-height: 1.55; }
+  @media (max-width: 380px) { .total { font-size: 54px; } .m small { font-size: 8.5px; } .m span { font-size: 12px; } }
+  @media (prefers-reduced-motion: reduce) { .fill, .meter i { transition: none; } }
+</style>
+</head>
+<body>
+<main class="shell">
+  <div class="eyebrow"><b>2C · RD8 racks</b> · MRH Investment</div>
+
+  <section class="card hero">
+    <div class="total"><span id="total">–</span><span class="unit" id="unit">racks sold</span></div>
+    <div class="sub" id="sub"></div>
+    <div class="split" id="split"></div>
+  </section>
+
+  <section class="card">
+    <div class="charthead">
+      <div class="title">Racks sold per month</div>
+      <div class="hint" id="chartHint">Tap a month to filter</div>
+    </div>
+    <div class="chart">
+      <div class="axis" id="axis" aria-hidden="true"></div>
+      <div class="plotwrap">
+        <div class="grid" id="grid" aria-hidden="true"></div>
+        <div class="bars" id="bars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="listhead">
+      <div class="title" id="listTitle">By rack, month by month</div>
+      <button class="chip" id="clear" type="button">All months ✕</button>
+    </div>
+    <ul class="rows" id="rows"></ul>
+  </section>
+
+  <div class="foot" id="foot"></div>
+</main>
+
+<script>
+(function () {
+  'use strict';
+  var DATA = {"months":["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct"],"products":[{"series":"2C","colour":"Black","type":"Single Side","height":2000,"flag":false,"name":"2C Black Single Side 2000mm","zoho":[0,28,16,6,2,0,6,8,0,0],"odoo":[0,0,0,0,0,0,0,0,2,0]},{"series":"2C","colour":"Black","type":"Double Side","height":1800,"flag":false,"name":"2C Black Double Side 1800mm","zoho":[0,21,17,6,0,0,10,0,0,0],"odoo":[0,0,0,0,0,0,0,0,7,0]},{"series":"2C","colour":"Black","type":"Double Side","height":2000,"flag":false,"name":"2C Black Double Side 2000mm","zoho":[0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,4,0]},{"series":"2C","colour":"White","type":"Single Side","height":2000,"flag":false,"name":"2C White Single Side 2000mm","zoho":[30,12,37,13,0,0,24,35,0,0],"odoo":[0,0,0,0,0,0,0,13,28,12]},{"series":"2C","colour":"White","type":"Double Side","height":1800,"flag":false,"name":"2C White Double Side 1800mm","zoho":[13,15,9,4,0,0,35,14,0,0],"odoo":[0,0,0,0,0,0,0,9,12,0]},{"series":"2C","colour":"White","type":"Double Side","height":2000,"flag":false,"name":"2C White Double Side 2000mm","zoho":[0,2,5,8,0,0,1,0,0,0],"odoo":[0,0,0,0,0,0,0,3,9,3]},{"series":"2C","colour":"White","type":"End Rack","height":1800,"flag":false,"name":"2C White End Rack 1800mm","zoho":[0,0,0,0,0,0,0,1,0,0],"odoo":[0,0,0,0,0,0,0,2,4,1]},{"series":"2C","colour":"White","type":"End Rack","height":null,"flag":true,"name":"2C White End Rack \u00b7 Mart Rack End 5ft","zoho":[0,0,0,0,2,0,2,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Gray","type":"Single Side","height":1950,"flag":false,"name":"RD8 Gray Single Side 1950mm","zoho":[0,19,3,11,0,55,20,4,0,0],"odoo":[0,0,0,0,0,0,0,56,29,1]},{"series":"RD8","colour":"Gray","type":"Double Side","height":1550,"flag":false,"name":"RD8 Gray Double Side 1550mm","zoho":[0,0,0,2,2,3,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Gray","type":"Double Side","height":1950,"flag":false,"name":"RD8 Gray Double Side 1950mm","zoho":[0,13,4,0,5,0,30,0,0,0],"odoo":[0,0,0,0,0,0,0,16,9,5]},{"series":"RD8","colour":"Gray","type":"End Rack","height":1550,"flag":false,"name":"RD8 Gray End Rack 1550mm","zoho":[0,0,0,0,0,1,1,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Gray","type":"End Rack","height":1950,"flag":false,"name":"RD8 Gray End Rack 1950mm","zoho":[0,0,0,0,1,0,0,6,0,0],"odoo":[0,0,0,0,0,0,0,8,1,0]},{"series":"RD8","colour":"White","type":"Single Side","height":1950,"flag":false,"name":"RD8 White Single Side 1950mm","zoho":[11,12,0,23,14,9,38,22,0,0],"odoo":[0,0,0,0,0,0,0,48,11,0]},{"series":"RD8","colour":"White","type":"Double Side","height":1550,"flag":false,"name":"RD8 White Double Side 1550mm","zoho":[1,0,0,2,3,3,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,6,2]},{"series":"RD8","colour":"White","type":"Double Side","height":1950,"flag":false,"name":"RD8 White Double Side 1950mm","zoho":[2,9,2,18,0,0,24,10,0,0],"odoo":[0,0,0,0,0,0,0,9,6,20]},{"series":"RD8","colour":"White","type":"End Rack","height":1550,"flag":false,"name":"RD8 White End Rack 1550mm","zoho":[0,0,0,0,1,2,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,2,2]},{"series":"RD8","colour":"White","type":"End Rack","height":1950,"flag":false,"name":"RD8 White End Rack 1950mm","zoho":[0,0,0,2,0,2,5,6,0,0],"odoo":[0,0,0,0,0,0,0,1,2,6]}],"generated":"15 Oct 2026"};
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { sel: null };
+  var MN = DATA.labels.length;
+  var short = DATA.labels.map(function (l) { return l.split(' ')[0]; });
+  var full = ['January','February','March','April','May','June','July','August','September','October'];
+
+  function num(n) { return n.toLocaleString('en-US'); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function sum(a) { return a.reduce(function (s, x) { return s + x; }, 0); }
+  function niceMax(v) {
+    if (v <= 4) return 4;
+    var mag = Math.pow(10, Math.floor(Math.log10(v))), f = v / mag;
+    return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * mag;
+  }
+  var P = DATA.products.map(function (p) {
+    p.m = p.zoho.map(function (z, i) { return z + p.odoo[i]; });
+    p.total = sum(p.m); p.zt = sum(p.zoho); p.ot = sum(p.odoo); return p;
+  });
+  var monthTot = []; for (var i = 0; i < MN; i++) monthTot.push(P.reduce(function (s, p) { return s + p.m[i]; }, 0));
+  var grand = sum(monthTot);
+
+  function hero() {
+    $('total').textContent = num(grand);
+    var zt = sum(P.map(function (p) { return p.zt; })), ot = sum(P.map(function (p) { return p.ot; }));
+    var sub = $('sub'); sub.textContent = '';
+    sub.appendChild(document.createTextNode('Jan – 15 Oct 2026 · every bay counted as one rack · '));
+    sub.appendChild(el('b', null, 'best month ' + full[monthTot.indexOf(Math.max.apply(null, monthTot))]));
+    var split = $('split'); split.textContent = '';
+    [['Zoho paid', zt, 'Jan – 26 Aug'], ['Odoo', ot, 'from 27 Aug']].forEach(function (x) {
+      var p = el('span', 'pill'); p.appendChild(el('b', null, num(x[1]))); p.appendChild(document.createTextNode(x[0] + ' · ' + x[2])); split.appendChild(p);
+    });
+  }
+
+  function chart() {
+    var max = niceMax(Math.max.apply(null, monthTot.concat([1])));
+    var axis = $('axis'), grid = $('grid'), bars = $('bars');
+    [0, 0.5, 1].forEach(function (f) {
+      var pos = (1 - f) * 100 + '%';
+      var s = el('span', null, num(Math.round(max * f))); s.style.top = pos; axis.appendChild(s);
+      var g = document.createElement('i'); g.style.top = pos; grid.appendChild(g);
+    });
+    monthTot.forEach(function (v, i) {
+      var b = el('button', 'bar'); b.type = 'button'; b.dataset.i = i;
+      b.setAttribute('aria-label', full[i] + ': ' + v + ' racks');
+      var c = el('div', 'barcol'); c.appendChild(el('div', 'val' + (v ? '' : ' zero'), num(v)));
+      var f = el('div', 'fill' + (v ? '' : ' zero')); f.dataset.h = v / max; f.style.height = '0px'; c.appendChild(f);
+      b.appendChild(c); b.appendChild(el('div', 'lbl', short[i]));
+      b.addEventListener('click', function () { select(state.sel === i ? null : i); });
+      bars.appendChild(b);
+    });
+    requestAnimationFrame(function () {
+      var col = bars.querySelector('.barcol'), avail = col ? col.clientHeight - 22 - 16 : 100;
+      Array.prototype.forEach.call(bars.querySelectorAll('.fill'), function (f) {
+        if (!f.classList.contains('zero')) f.style.height = Math.max(3, avail * (+f.dataset.h)) + 'px';
+      });
+    });
+  }
+
+  function select(i) {
+    state.sel = i;
+    var bars = $('bars'); bars.classList.toggle('has-sel', i !== null);
+    Array.prototype.forEach.call(bars.children, function (b) {
+      var on = +b.dataset.i === i; b.classList.toggle('sel', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    $('chartHint').textContent = i === null ? 'Tap a month to filter' : full[i] + ' 2026';
+    list();
+  }
+
+  var GROUPS = [['2C','Black'],['2C','White'],['RD8','Gray'],['RD8','White']];
+  function list() {
+    var rows = $('rows'); rows.textContent = '';
+    var s = state.sel;
+    var q = function (p) { return s === null ? p.total : p.m[s]; };
+    var top = Math.max.apply(null, P.map(q).concat([1]));
+    $('listTitle').textContent = s === null ? 'By rack, month by month' : full[s] + ' 2026 · ' + num(monthTot[s]) + ' racks';
+    $('clear').classList.toggle('on', s !== null);
+    GROUPS.forEach(function (g) {
+      var ps = P.filter(function (p) { return p.series === g[0] && p.colour === g[1]; });
+      var gh = el('li', 'group'); gh.appendChild(el('span', null, g[0] + ' ' + g[1]));
+      gh.appendChild(el('b', null, num(sum(ps.map(q))))); rows.appendChild(gh);
+      ps.forEach(function (p) {
+        var v = q(p), li = el('li', 'row' + (v ? '' : ' none'));
+        var t = el('div', 'top'); var nm = el('div', 'name', p.flag ? 'End Rack' : p.type);
+        nm.appendChild(el('span', 'spec', p.flag ? 'Mart Rack End 5ft' : p.height + 'mm'));
+        t.appendChild(nm); t.appendChild(el('div', 'n', num(v)));
+        t.appendChild(el('div', 'src', 'Zoho ' + num(p.zt) + ' · Odoo ' + num(p.ot) + ' · all months ' + num(p.total)));
+        li.appendChild(t);
+        var mt = el('div', 'meter'), i = document.createElement('i'); i.style.width = (v ? Math.max(2, v / top * 100) : 0) + '%'; mt.appendChild(i); li.appendChild(mt);
+        var mo = el('div', 'months');
+        p.m.forEach(function (x, k) {
+          var c = el('div', 'm' + (x ? '' : ' zero') + (s === k ? ' sel' : '')); c.appendChild(el('small', null, short[k])); c.appendChild(el('span', null, x ? num(x) : '·')); mo.appendChild(c);
+        });
+        li.appendChild(mo);
+        if (p.flag) li.appendChild(el('div', 'flag', 'Height not clear: Zoho "2C Mart Rack End White 5ft". Probably the 1800mm end rack; kept on its own row until confirmed.'));
+        rows.appendChild(li);
+      });
+    });
+  }
+
+  hero(); chart(); list();
+  $('clear').addEventListener('click', function () { select(null); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.sel !== null) select(null); });
+  $('foot').textContent = 'Composite 2C and RD8 racks only; loose parts are not counted. Racks of different heights are never added together. ' +
+    'Month = invoice date (Zoho, paid invoices only) or order date (Odoo). Round-shelf end racks and add-on bays are left out. October runs to the 15th. ' +
+    'Snapshot generated ' + DATA.generated + '.';
+})();
+</script>
+</body>
+</html>
