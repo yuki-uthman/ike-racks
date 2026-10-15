@@ -8,7 +8,7 @@ month by month** (Jan – 15 Oct 2026), per rack type and height. Same look as
 
 - Composite racks only (Single Side, Double Side, End Rack) in 2C Black/White and
   RD8 Gray/White. Loose parts, shelves, clips, nets and price borders are not racks.
-- Also shown: the **Lui Kaana Haru** wood vegetable racks (Small 4 Layer, Medium 5 Layers), and the **Vegetable Rack 4 Square Baskets**; one piece = one rack, Zoho paid + Odoo confirmed sales.
+- Also shown: the **Lui Kaana Haru** wood vegetable racks (Small 4 Layer, Medium 5 Layers), and the **Vegetable Rack 4 Square Baskets** and the **Trolley Stand 5 Layer** (Black, White; a Zoho item with no colour is taken as black); one piece = one rack, Zoho paid + Odoo confirmed sales.
 - Each bay is one rack: a set sold as "x5" counts as 5.
 - Racks of different heights are separate rows and are never added together
   (2C 1800/2000mm, RD8 1550/1950mm).
