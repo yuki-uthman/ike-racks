@@ -146,8 +146,8 @@
       gh.appendChild(el('b', null, num(sum(ps.map(function (p) { return p.total; }))))); rows.appendChild(gh);
       ps.forEach(function (p) {
         var li = el('li', 'row' + (p.total ? '' : ' none'));
-        var t = el('div', 'top'); var nm = el('div', 'name', p.flag ? 'End Rack' : p.type);
-        nm.appendChild(el('span', 'spec', p.flag ? 'Mart Rack End 5ft' : p.height + 'mm'));
+        var t = el('div', 'top'); var nm = el('div', 'name', p.flag ? '2C White End Rack' : p.series + ' ' + p.colour + ' ' + p.type + ' ' + p.height + 'mm');
+        if (p.flag) nm.appendChild(el('span', 'spec', 'Mart Rack End 5ft'));
         t.appendChild(nm); t.appendChild(el('div', 'n', num(p.total)));
         t.appendChild(el('div', 'src', 'Zoho ' + num(p.zt) + ' · Odoo ' + num(p.ot)));
         li.appendChild(t);
