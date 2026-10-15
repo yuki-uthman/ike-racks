@@ -169,7 +169,7 @@
         return (a.flag ? 1 : 0) - (b.flag ? 1 : 0) || (b.height || 0) - (a.height || 0) || (TO[a.type] - TO[b.type]) || 0;
       });
       var gh = el('li', 'group'); gh.appendChild(el('span', null, (g[0] === 'TRL' ? TITLE.TRL + ' · ' + g[1] : TITLE[g[0]]) || g[0] + ' ' + g[1]));
-      gh.appendChild(el('b', null, num(sum(ps.map(function (p) { return p.total; }))))); rows.appendChild(gh);
+      rows.appendChild(gh);
       ps.forEach(function (p) {
         var li = el('li', 'row' + (p.total ? '' : ' none'));
         var t = el('div', 'top'); var nm = el('div', 'name', p.label ? p.label : p.flag ? '2C White End Rack' : p.series + ' ' + p.colour + ' ' + p.type + ' ' + p.height + 'mm');
@@ -205,8 +205,8 @@
         return (a.flag ? 1 : 0) - (b.flag ? 1 : 0) || (b.height || 0) - (a.height || 0) || (TO[a.type] - TO[b.type]) || 0;
       });
       var gr = el('tr', 'g'); gr.appendChild(el('td', null, (g[0] === 'TRL' ? TITLE.TRL + ' · ' + g[1] : TITLE[g[0]]) || g[0] + ' ' + g[1]));
-      for (var k = 0; k < MN; k++) gr.appendChild(el('td', null, num(sum(ps.map(function (p) { return p.m[k]; })))));
-      gr.appendChild(el('td', 'tot', num(sum(ps.map(function (p) { return p.total; }))))); tb.appendChild(gr);
+      for (var k = 0; k <= MN; k++) gr.appendChild(el('td', k === MN ? 'tot' : null, ''));
+      tb.appendChild(gr);
       ps.forEach(function (p) {
         var tr = el('tr'); tr.appendChild(el('td', null, rackName(p)));
         p.m.forEach(function (x) { tr.appendChild(el('td', x ? null : 'z', x ? num(x) : '·')); });
