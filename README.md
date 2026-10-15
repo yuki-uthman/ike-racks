@@ -19,8 +19,8 @@ month by month** (Jan – 15 Oct 2026), per rack type and height. Same look as
 ## Data
 
 The numbers are a **snapshot embedded in `index.html`** (`var DATA`). They do not
-refresh by themselves. Source workbook: `odoo/rack_sales_by_month.xlsx`. Tap a
-month bar to see only that month; Esc or "All months" goes back.
+refresh by themselves. Source workbook: `odoo/rack_sales_by_month.xlsx`. Each rack has its own vertical bar graph, one bar per month with the
+number on top (each graph is scaled to its own highest month).
 
 ## One-time setup
 
