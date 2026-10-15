@@ -141,7 +141,10 @@
   function list() {
     var rows = $('rows'); rows.textContent = '';
     GROUPS.forEach(function (g) {
-      var ps = P.filter(function (p) { return p.series === g[0] && p.colour === g[1]; });
+      var TO = { 'Single Side': 0, 'Double Side': 1, 'End Rack': 2 };
+      var ps = P.filter(function (p) { return p.series === g[0] && p.colour === g[1]; }).sort(function (a, b) {
+        return (a.flag ? 1 : 0) - (b.flag ? 1 : 0) || (b.height || 0) - (a.height || 0) || TO[a.type] - TO[b.type];
+      });
       var gh = el('li', 'group'); gh.appendChild(el('span', null, g[0] + ' ' + g[1]));
       gh.appendChild(el('b', null, num(sum(ps.map(function (p) { return p.total; }))))); rows.appendChild(gh);
       ps.forEach(function (p) {
