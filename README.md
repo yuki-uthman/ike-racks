@@ -1,8 +1,9 @@
 # Ike Racks
 
 A single static page showing **how many 2C and RD8 racks MRH Investment sold,
-month by month** (Jan – 15 Oct 2026), per rack type and height. Same look as
-[ike-po](https://github.com/yuki-uthman/ike-po). No secret, no cron, no build step.
+month by month** (from Oct 2025, current month to date), per rack type and height. Same look as
+[ike-po](https://github.com/yuki-uthman/ike-po). No secret, no cron, no build step: the
+page fetches `racks.json` from ike-data, like the other pages.
 
 ## What is counted
 
@@ -19,8 +20,22 @@ month by month** (Jan – 15 Oct 2026), per rack type and height. Same look as
 
 ## Data
 
-The numbers are a **snapshot embedded in `index.html`** (`var DATA`). They do not
-refresh by themselves. Source workbook: `odoo/rack_sales_by_month.xlsx`. A **Graphs | Table** switch sits at the top (`#table` opens the table directly). Each rack has its own vertical bar graph, one bar per month with the
+The page fetches `https://raw.githubusercontent.com/yuki-uthman/ike-data/main/data/racks.json`
+and refreshes itself every minute while open. That file is written every 15 minutes by
+`ike-data/scripts/fetch_racks.py` (same job as sales and quotations).
+
+- **Zoho (to 26 Aug 2026)** is static history in `ike-data/scripts/racks_history.json`,
+  together with the row definitions the page draws. It never changes.
+- **Odoo (from 27 Aug 2026)** is recomputed live from confirmed sales orders and
+  till sales. Rules and exclusions are in the docstring of `fetch_racks.py`; the
+  rack-counting rules are tested by `scripts/test_racks.py`.
+- **To change what counts as a rack** (a new product, a different height) edit
+  `fetch_racks.py` in ike-data, not this page. A new row on the page also needs a
+  group in `GROUPS` in `index.html`.
+- `?data=local.json` opens the page against a file next to it, for testing.
+
+The old workbook `odoo/rack_sales_by_month.xlsx` is no longer the source.
+A **Graphs | Table** switch sits at the top (`#table` opens the table directly). Each rack has its own vertical bar graph, one bar per month with the
 number on top (each graph is scaled to its own highest month).
 
 ## One-time setup

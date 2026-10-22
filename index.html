@@ -115,6 +115,8 @@
   .t td.tot, .t th.tot { font-weight: 800; color: var(--ink); padding-right: 18px; }
   .t tr.g td { background: var(--muted); font-family: Manrope, sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink2); }
   .t tr.g td:first-child { background: var(--muted); }
+  .err { padding: 14px 16px; border-radius: 14px; background: rgba(140,47,47,0.10); color: #8c2f2f; font-size: 14px; }
+  @media (prefers-color-scheme: dark) { .err { background: rgba(224,133,133,0.12); color: #e08585; } }
   .foot { text-align: center; font-size: 12px; color: var(--ink3); padding: 2px 8px; line-height: 1.55; }
   @media (max-width: 380px) { .total { font-size: 54px; } .m small { font-size: 8.5px; } .m span { font-size: 12px; } }
   @media (prefers-reduced-motion: reduce) { .fill, .meter i { transition: none; } }
@@ -142,12 +144,14 @@
 <script>
 (function () {
   'use strict';
-  var DATA = {"months":["2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10"],"labels":["Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct"],"products":[{"series":"2C","colour":"Black","type":"Single Side","height":2000,"flag":false,"name":"2C Black Single Side 2000mm","zoho":[0,0,24,0,28,16,6,2,0,6,8,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,2,0]},{"series":"2C","colour":"Black","type":"Double Side","height":1800,"flag":false,"name":"2C Black Double Side 1800mm","zoho":[1,5,1,0,21,17,6,0,0,10,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,7,0]},{"series":"2C","colour":"Black","type":"Double Side","height":2000,"flag":false,"name":"2C Black Double Side 2000mm","zoho":[0,0,2,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,4,20]},{"series":"2C","colour":"White","type":"Single Side","height":2000,"flag":false,"name":"2C White Single Side 2000mm","zoho":[28,13,40,30,12,37,13,0,0,24,35,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,13,28,34]},{"series":"2C","colour":"White","type":"Double Side","height":1800,"flag":false,"name":"2C White Double Side 1800mm","zoho":[17,2,5,13,15,9,4,0,0,35,14,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,9,12,0]},{"series":"2C","colour":"White","type":"Double Side","height":2000,"flag":false,"name":"2C White Double Side 2000mm","zoho":[0,0,4,0,2,5,8,0,0,1,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,3,9,6]},{"series":"2C","colour":"White","type":"End Rack","height":1800,"flag":false,"name":"2C White End Rack 1800mm","zoho":[0,0,0,0,0,0,0,0,0,0,1,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,2,4,1]},{"series":"2C","colour":"White","type":"End Rack","height":null,"flag":true,"name":"2C White End Rack · Mart Rack End 5ft","zoho":[0,0,0,0,0,0,0,2,0,2,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Gray","type":"Single Side","height":1950,"flag":false,"name":"RD8 Gray Single Side 1950mm","zoho":[0,0,0,0,19,3,11,0,55,20,4,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,56,29,1]},{"series":"RD8","colour":"Gray","type":"Double Side","height":1550,"flag":false,"name":"RD8 Gray Double Side 1550mm","zoho":[0,0,0,0,0,0,2,2,3,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Gray","type":"Double Side","height":1950,"flag":false,"name":"RD8 Gray Double Side 1950mm","zoho":[0,0,20,0,13,4,0,5,0,30,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,16,9,5]},{"series":"RD8","colour":"Gray","type":"End Rack","height":1550,"flag":false,"name":"RD8 Gray End Rack 1550mm","zoho":[0,0,0,0,0,0,0,0,1,1,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Gray","type":"End Rack","height":1950,"flag":false,"name":"RD8 Gray End Rack 1950mm","zoho":[0,0,4,0,0,0,0,1,0,0,6,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,8,1,0]},{"series":"RD8","colour":"White","type":"Single Side","height":1950,"flag":false,"name":"RD8 White Single Side 1950mm","zoho":[0,1,3,11,12,0,23,14,9,38,22,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,48,11,6]},{"series":"RD8","colour":"White","type":"Double Side","height":1550,"flag":false,"name":"RD8 White Double Side 1550mm","zoho":[0,0,0,0,0,0,2,3,3,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,6,2]},{"series":"RD8","colour":"White","type":"Double Side","height":1950,"flag":false,"name":"RD8 White Double Side 1950mm","zoho":[0,3,22,3,9,2,18,0,0,24,10,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,9,6,28]},{"series":"RD8","colour":"White","type":"End Rack","height":1550,"flag":false,"name":"RD8 White End Rack 1550mm","zoho":[0,0,0,0,0,0,0,1,2,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,2,2]},{"series":"RD8","colour":"White","type":"End Rack","height":1950,"flag":false,"name":"RD8 White End Rack 1950mm","zoho":[0,0,0,0,0,0,2,0,2,5,6,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,1,2,6]},{"series":"LKH","colour":"Wood","type":"Lui Kaana Haru Medium 5 Layers","height":null,"flag":false,"name":"Lui Kaana Haru Medium 5 Layers","label":"Lui Kaana Haru Medium 5 Layers","zoho":[6,7,13,6,13,2,0,0,0,6,7,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,3,5]},{"series":"LKH","colour":"Wood","type":"Lui Kaana Haru Small 4 Layer","height":null,"flag":false,"name":"Lui Kaana Haru Small 4 Layer","label":"Lui Kaana Haru Small 4 Layer","zoho":[2,0,4,6,1,3,2,7,2,1,1,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,2,1,4]},{"series":"VEG","colour":"Basket","type":"Vegetable Rack 4 Square Baskets","height":null,"flag":false,"name":"Vegetable Rack 4 Square Baskets","label":"Vegetable Rack 4 Square Baskets","zoho":[1,6,11,6,9,1,1,4,16,3,5,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,5,10,10]},{"series":"TRL","colour":"Black","type":"Trolley Stand 5 Layer Black","height":null,"flag":false,"name":"Trolley Stand 5 Layer Black","label":"Trolley Stand 5 Layer Black","zoho":[4,7,5,2,6,6,8,0,0,0,3,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,1,4,4]},{"series":"TRL","colour":"White","type":"Trolley Stand 5 Layer White","height":null,"flag":false,"name":"Trolley Stand 5 Layer White","label":"Trolley Stand 5 Layer White","zoho":[0,0,0,0,0,0,0,0,0,3,2,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,5,0]},{"series":"PB2C","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"2C Price border · Red","label":"2C Price border strip · Red","zoho":[0,4,66,0,0,0,36,0,20,0,121,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,60,84]},{"series":"PB2C","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"2C Price border · White","label":"2C Price border strip · White","zoho":[0,20,0,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,117,0]},{"series":"PB2C","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"2C Price border · Green","label":"2C Price border strip · Green","zoho":[0,0,54,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"PB2C","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"2C Price border · Black","label":"2C Price border strip · Black","zoho":[0,0,0,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"PBRD8","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"RD8 Price border · White","label":"RD8 Price border strip · White 900mm","zoho":[0,24,20,18,24,112,16,0,30,178,117,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,230,326]},{"series":"PBRD8","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"RD8 Price border · Black","label":"RD8 Price border strip · Black 900mm","zoho":[0,0,0,0,0,0,0,0,76,64,402,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"PBRD8","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"RD8 Price border · Green","label":"RD8 Price border strip · Green 900mm","zoho":[0,0,145,0,62,0,271,18,0,0,50,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,42]},{"series":"PBRD8","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"RD8 Price border · Red","label":"RD8 Price border strip · Red 900mm","zoho":[0,0,0,8,66,0,0,0,42,96,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"PBRD8","colour":"Strip","type":"Price border","height":null,"flag":false,"name":"RD8 Price border · Blue","label":"RD8 Price border strip · Blue 900mm","zoho":[0,0,0,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,1,0,0]},{"series":"RD8","colour":"Black","type":"Double Side","height":1550,"flag":false,"name":"RD8 Black Double Side 1550mm","zoho":[0,2,2,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"RD8","colour":"Black","type":"Single Side","height":1950,"flag":false,"name":"RD8 Black Single Side 1950mm","zoho":[0,30,5,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"SB","colour":"White","type":"Steel barrier","height":null,"flag":false,"name":"2C Steel barrier 900mm · White","label":"2C Steel barrier 900mm · White","zoho":[10,24,24,11,34,45,0,0,30,19,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,17]},{"series":"SB","colour":"Black","type":"Steel barrier","height":null,"flag":false,"name":"2C Steel barrier 900mm · Black","label":"2C Steel barrier 900mm · Black","zoho":[0,0,0,0,30,20,0,0,0,35,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"TS","colour":"2C Black","type":"Top shelf","height":null,"flag":false,"name":"2C Black top shelf 900mm","label":"2C Black top shelf 900mm","zoho":[0,0,11,0,0,0,0,0,0,0,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,0,0]},{"series":"TS","colour":"2C White","type":"Top shelf","height":null,"flag":false,"name":"2C White top shelf 900mm","label":"2C White top shelf 900mm","zoho":[13,26,4,0,2,0,0,10,0,18,6,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,10,10]},{"series":"TS","colour":"RD8 Gray","type":"Top shelf","height":null,"flag":false,"name":"RD8 Gray top shelf 900mm","label":"RD8 Gray top shelf 900mm","zoho":[0,0,0,0,0,0,4,12,0,0,88,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,12,12]},{"series":"TS","colour":"RD8 Gray","type":"Top shelf","height":null,"flag":false,"name":"RD8 Gray top shelf 700mm","label":"RD8 Gray top shelf 700mm","zoho":[0,0,0,0,0,0,0,0,0,0,7,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,4,0]},{"series":"TS","colour":"RD8 White","type":"Top shelf","height":null,"flag":false,"name":"RD8 White top shelf 900mm","label":"RD8 White top shelf 900mm","zoho":[0,0,4,0,15,0,2,2,8,20,18,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,8,9]},{"series":"TS","colour":"RD8 White","type":"Top shelf","height":null,"flag":false,"name":"RD8 White top shelf 700mm","label":"RD8 White top shelf 700mm","zoho":[0,0,0,0,0,0,0,0,0,8,0,0,0],"odoo":[0,0,0,0,0,0,0,0,0,0,0,2,2]}],"generated":"15 Oct 2026"};
+  var DEFAULT_URL = 'https://raw.githubusercontent.com/yuki-uthman/ike-data/main/data/racks.json';
+  // ?data=local.json is for trying the page against a file next to it; only
+  // plain relative paths are accepted so a crafted link can't point elsewhere.
+  var override = new URLSearchParams(location.search).get('data');
+  var DATA_URL = override && /^[\w.\-\/]+$/.test(override) && override.indexOf('..') < 0 ? override : DEFAULT_URL;
+  var DATA = null;
   var $ = function (id) { return document.getElementById(id); };
-  var MN = DATA.labels.length;
-  var short = DATA.labels.map(function (l) { return l.split(' ')[0]; });
-  var full = ['October 2025','November 2025','December 2025','January','February','March','April','May','June','July','August','September','October'];
-  var yrs = { 0: '2025', 3: '2026' };
+  var MN = 0, short = [], full = [], yrs = {}, shortYr = [];
 
   function num(n) { return n.toLocaleString('en-US'); }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -157,10 +161,24 @@
     var mag = Math.pow(10, Math.floor(Math.log10(v))), f = v / mag;
     return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * mag;
   }
-  var P = DATA.products.map(function (p) {
-    p.m = p.zoho.map(function (z, i) { return z + p.odoo[i]; });
-    p.total = sum(p.m); p.zt = sum(p.zoho); p.ot = sum(p.odoo); return p;
-  });
+  var P = [];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  // Everything that depends on the file's month axis, so a new month needs no edit here.
+  function setup(data) {
+    DATA = data; MN = data.months.length;
+    var last = data.months[MN - 1].slice(0, 4);
+    short = data.months.map(function (m) { return MONTHS[+m.slice(5) - 1].slice(0, 3); });
+    full = data.months.map(function (m) { return MONTHS[+m.slice(5) - 1] + ' ' + m.slice(0, 4); });
+    yrs = {}; shortYr = [];
+    data.months.forEach(function (m, k) {
+      if (k === 0 || m.slice(5) === '01') yrs[k] = m.slice(0, 4);
+      shortYr[k] = m.slice(0, 4) === last ? '' : ' ’' + m.slice(2, 4);
+    });
+    P = data.products.map(function (p) {
+      p.m = p.zoho.map(function (z, i) { return z + p.odoo[i]; });
+      p.total = sum(p.m); p.zt = sum(p.zoho); p.ot = sum(p.odoo); return p;
+    });
+  }
 
   var GROUPS = [['2C','Black'],['TS','2C Black'],['2C','White'],['TS','2C White'],['RD8','Gray'],['TS','RD8 Gray'],['RD8','White'],['TS','RD8 White'],['RD8','Black'],['LKH','Wood'],['VEG','Basket'],['TRL','Black'],['TRL','White'],['PB2C','Strip'],['PBRD8','Strip'],['SB','White'],['SB','Black']];
   var TITLE = { LKH: 'Lui Kaana Haru · Wood vegetable rack', VEG: 'Vegetable rack', TRL: 'Trolley stand', PB2C: '2C price borders', PBRD8: 'RD8 price borders', SB: '2C steel barrier' };
@@ -187,6 +205,7 @@
           var f = el('div', 'f' + (x ? '' : ' zero')); f.style.height = x ? Math.max(4, x / mx * 72) + 'px' : '2px'; c.appendChild(f);
           var lb = el('div', 'l', short[k]); if (yrs[k]) lb.appendChild(el('span', 'yr', yrs[k])); c.appendChild(lb); vb.appendChild(c);
         });
+        vb.style.gridTemplateColumns = 'repeat(' + MN + ', minmax(0, 1fr))';
         li.appendChild(vb);
         if (p.flag) li.appendChild(el('div', 'flag', 'Height not clear: Zoho "2C Mart Rack End White 5ft". Probably the 1800mm end rack; kept on its own row until confirmed.'));
         rows.appendChild(li);
@@ -200,7 +219,7 @@
     var TO = { 'Single Side': 0, 'Double Side': 1, 'End Rack': 2 };
     var t = el('table', 't'), th = el('thead'), hr = el('tr');
     hr.appendChild(el('th', null, 'Rack'));
-    short.forEach(function (m, k) { hr.appendChild(el('th', null, k < 3 ? m + ' ’25' : m)); });
+    short.forEach(function (m, k) { hr.appendChild(el('th', null, m + shortYr[k])); });
     hr.appendChild(el('th', 'tot', 'Total')); th.appendChild(hr); t.appendChild(th);
     var tb = el('tbody');
     GROUPS.forEach(function (g) {
@@ -225,14 +244,37 @@
     $('vTable').setAttribute('aria-pressed', tbl ? 'true' : 'false');
     try { localStorage.setItem('ike-racks-view', v); } catch (e) {}
   }
-  list(); table();
+  var NOTE = '2C and RD8 composite racks, plus the Lui Kaana Haru wood vegetable racks the Vegetable Rack 4 Square Baskets the Trolley Stand 5 Layer, the 2C / RD8 price border strips the 2C Steel Barrier 900mm and the 2C / RD8 top shelves sold on their own (all top-shelf sizes with clips included; an uncoloured Zoho "2C Top Shelf" is taken as white) (counted as pieces; Zoho items with no colour are taken as black, except "2C STEEL BARRIER 900MM", which is taken as white unless its description says black); loose parts are not counted. Racks of different heights are never added together. ' +
+    'Month = invoice date (Zoho, paid invoices only, up to 26 Aug 2026) or order date (Odoo, from 27 Aug 2026, refreshed every 15 minutes). The current month is month to date. Round-shelf end racks and add-on bays are left out. Oct–Dec 2025 come from Zoho paid invoices only (Odoo was not in use yet). ';
+
+  function render(data) {
+    setup(data); list(); table();
+    var gen = data.generatedAt ? new Date(data.generatedAt) : null;
+    $('foot').textContent = NOTE + (gen && !isNaN(gen) ? 'Updated ' + gen.toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + '.' : '');
+  }
+
+  function load() {
+    return fetch(DATA_URL, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        if (!data || !Array.isArray(data.months) || !Array.isArray(data.products)) throw new Error('unexpected file');
+        var old = document.querySelector('.err'); if (old) old.remove();
+        render(data);
+      })
+      .catch(function (e) {
+        if (DATA) return; // keep showing the last good numbers
+        var box = el('div', 'err', 'Could not load the rack numbers (' + e.message + '). Reload to try again.');
+        $('rows').parentNode.insertBefore(box, $('rows'));
+      });
+  }
+
   $('vGraph').addEventListener('click', function () { view('graph'); });
   $('vTable').addEventListener('click', function () { view('table'); });
   var saved = null; try { saved = localStorage.getItem('ike-racks-view'); } catch (e) {}
   view(location.hash === '#table' ? 'table' : saved === 'table' ? 'table' : 'graph');
-  $('foot').textContent = '2C and RD8 composite racks, plus the Lui Kaana Haru wood vegetable racks the Vegetable Rack 4 Square Baskets the Trolley Stand 5 Layer, the 2C / RD8 price border strips the 2C Steel Barrier 900mm and the 2C / RD8 top shelves sold on their own (all top-shelf sizes with clips included; an uncoloured Zoho "2C Top Shelf" is taken as white) (counted as pieces; Zoho items with no colour are taken as black, except "2C STEEL BARRIER 900MM", which is taken as white unless its description says black); loose parts are not counted. Racks of different heights are never added together. ' +
-    'Month = invoice date (Zoho, paid invoices only) or order date (Odoo). Round-shelf end racks and add-on bays are left out. Oct–Dec 2025 come from Zoho paid invoices only (Odoo was not in use yet). October 2026 runs to the 15th. ' +
-    'Snapshot generated ' + DATA.generated + '.';
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) load(); });
+  setInterval(function () { if (!document.hidden) load(); }, 60000);
+  load();
 })();
 </script>
 </body>
